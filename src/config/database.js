@@ -4,7 +4,7 @@ const config = {
     user: 'quality',
     password: 'Qu@lity',
     server: '172.16.1.95',
-    database: 'BdQMakita',
+    database: 'DTEBdQMakita',
     options: {
         encrypt: false
     }

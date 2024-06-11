@@ -3,7 +3,7 @@ const { fetchData } = require('./data/dataService');
 
 const app = express();
 const PORT = 3001;
-const SERVER_URL = `/paridades`;
+const SERVER_URL = `${PORT}/paridades`;
 
 app.get('/', async (req, res) => {
     try {
