@@ -17,7 +17,7 @@ async function sendEmailWithDB(error) {
         await request
             .input('profile_name', sql.VarChar, 'Sistemas')
             .input('recipients', sql.VarChar, 'soporte@makita.cl')
-            .input('copy_recipients', sql.VarChar, 'jherrera@makita.cl;bmunoz@makita.cl')
+            .input('copy_recipients', sql.VarChar, 'jherrera@makita.cl;nmorales@makita.cl')
             .input('subject', sql.VarChar, subject)
             .input('body', sql.VarChar, body)
             .input('importance', sql.VarChar, 'High')
