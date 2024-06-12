@@ -10,6 +10,8 @@ async function updateParidad(empresa, moneda, fecha, valor) {
 
     try {
 
+
+
         let contador;
         logger.info(`Iniciamos la funcion updateParidad`);
     
@@ -27,7 +29,7 @@ async function updateParidad(empresa, moneda, fecha, valor) {
             request.input('empresa', sql.VarChar, empresa);
             request.input('moneda', sql.VarChar, moneda);
             request.input('fecha', sql.Date, fecha);
-            request.input('valor', sql.Decimal, valor);
+            request.input('valor',  sql.Decimal(22, 8), valor);
             
             const consulta = `UPDATE Paridad SET Paridad = @valor WHERE Empresa = @empresa AND Moneda = @moneda AND Fecha = @fecha`;
             
