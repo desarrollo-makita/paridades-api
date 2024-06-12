@@ -1,6 +1,6 @@
 const axios = require('axios');
 const moment = require('moment');
-const { connectToDatabase } = require('../config/database');
+const logger = require('../config/logger.js');
 const { updateParidad } = require('./paridadService');
 
 const series = [
@@ -41,6 +41,7 @@ function formatDate(date) {
 
 async function fetchData() {
     try {
+        logger.info(`Iniciamos funcion fetchData-Banco-Central`);
         const currentDate = getCurrentDate();
         const apiUrl = `https://si3.bcentral.cl/SieteRestWS/SieteRestWS.ashx?user=soporte@makita.cl&pass=Makita2024&firstdate=${currentDate}&lastdate=${currentDate}&timeseries=`;
         const requests = series.map(serie => axios.get(`${apiUrl}${serie}&function=GetSeries`));
@@ -65,14 +66,17 @@ async function fetchData() {
                 
                 // Llamar a updateParidad y almacenar la respuesta
                 responseUpdate = await updateParidad('Makita', item.Series.Obs[0].glosa, formattedDate, parseFloat(item.Series.Obs[0].value));
-
+                
             }
         }
+
+        logger.info(`Fin de la funcion fetchData-Banco-Central`);
         
         return responseUpdate;
     
     } catch (error) {
         console.error('Error al realizar la solicitud:', error.message);
+        throw error;
     }
 }
 
