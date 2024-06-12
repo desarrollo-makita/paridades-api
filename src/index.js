@@ -1,50 +1,50 @@
 const express = require('express');
 const { fetchData } = require('./data/dataService');
+const routes = require('./routes/routes');
+const { connectToDatabase } = require('./config/database');
 
 const app = express();
 const PORT = 3001;
-const SERVER_URL = `/paridades`;
+const SERVER_URL = `${PORT}/paridades`;
 
-app.get('/', async (req, res) => {
-    try {
-        const seriesData = await fetchData(SERVER_URL);
-        res.status(200).json(seriesData);
-    } catch (error) {
-        console.error('Error fetching data:', error.message);
-        res.status(500).json({ descripcion: 'Error fetching data', status: 500 });
-    }
-});
-
-// Manejo de rutas no encontradas
+// Middleware para habilitar CORS
 app.use((req, res, next) => {
-    res.status(404).send('Página no encontrada');
+    res.setHeader('Access-Control-Allow-Origin', '*'); // Permite cualquier origen
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+    next();
 });
 
-// Manejo de errores
-app.use((err, req, res, next) => {
-    console.error(err.stack);
-    res.status(500).send('Error interno del servidor');
-});
 
-// Iniciar el servidor
-app.listen(PORT, async () => {
-    console.log(`Server running at ${SERVER_URL}`);
-    
-    // Llamada inicial a fetchData una vez que el servidor esté iniciado
+app.use('/', routes);
+
+
+// Iniciar el servidor después de la conexión a la base de datos
+connectToDatabase().then(() => {
+    app.listen(PORT, () => {
+        console.log(`Servidor escuchando en ${SERVER_URL}`);
+    });
     try {
-        const seriesData = await fetchData(SERVER_URL);
-        console.log('Data fetched successfully:', seriesData);
+        setInterval(async () => {
+            try {
+                const seriesData = await fetchData();
+                if(seriesData.status === 200){
+                    console.log('Data fetched successfully:', seriesData);
+                }else{
+                    console.log('Error fetching data:', seriesData);
+                }
+                
+            } catch (error) {
+                console.error('Error fetching data:', error.message);
+            }
+        }, 10000); // 10000 milisegundos = 10 segundos
+       
     } catch (error) {
         console.error('Error fetching data:', error.message);
     }
-
-    // Llamada a fetchData cada 15 segundos
-    setInterval(async () => {
-        try {
-            const seriesData = await fetchData(SERVER_URL);
-            console.log('Data fetched successfully:', seriesData);
-        } catch (error) {
-            console.error('Error fetching data:', error.message);
-        }
-    }, 15000); // 15000 milisegundos = 15 segundos
+}).catch(error => {
+    console.error('Error al iniciar el servidor:', error);
+    process.exit(1); // Termina el proceso con un código de error
 });
+
+

@@ -1,25 +1,33 @@
 const sql = require('mssql');
+require('dotenv').config();
 
-const config = {
-    user: 'quality',
-    password: 'Qu@lity',
-    server: '172.16.1.95',
-    database: 'BdQMakita',
-    options: {
-        encrypt: false
-    }
-};
+async function connectToDatabase(databaseName) {
+    const config = {
+        user: 'quality',
+        password: 'Qu@lity',
+        server: '172.16.1.95',
+        database: databaseName, //"BdQMakita", // DTEBdQMakita
+        options: {
+            encrypt: false
+        }
+    };
 
-async function connectToDatabase() {
     try {
-        const pool = await sql.connect(config);
-        return pool;
+        await sql.connect(config);
     } catch (error) {
-        console.error('Error connecting to database:', error.message);
+        console.error('Error al conectar a la base de datos:', error.message);
         throw error;
     }
 }
 
-module.exports = {
-    connectToDatabase
-};
+async function closeDatabaseConnection() {
+    try {
+        await sql.close();
+        console.log('Conexión a la base de datos cerrada');
+    } catch (error) {
+        console.error('Error al cerrar la conexión a la base de datos:', error.message);
+        throw error;
+    }
+}
+
+module.exports = { connectToDatabase, closeDatabaseConnection };
