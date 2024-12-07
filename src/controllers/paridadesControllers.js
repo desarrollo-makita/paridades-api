@@ -18,7 +18,7 @@ async function paridades(req , res){
 
         if(seriesData.status != 200 ){
             logger.error(`Error fetching data ${seriesData.mensaje}`);
-            return  res.status(seriesData.status).json({"Error fetching data" : seriesData});
+            return  res.status(404).json({"Error fetching data" : seriesData.mensaje});
         
         }else{
             logger.info(`Data fetched successfully ${seriesData.mensaje}`);
