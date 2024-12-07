@@ -51,7 +51,7 @@ async function updateParidad(empresa, moneda, fecha, valor) {
                 };
 
                 if (!isEmailSent()) {
-                    await sendEmailWithDB(resError);
+                    // await sendEmailWithDB(resError);
                     setEmailSent(true); // Marcamos que el correo ha sido enviado
                 }
 
