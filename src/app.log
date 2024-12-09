@@ -1883,3 +1883,7 @@
 2024-06-12 11:28:10 [INFO]: Iniciamos la funcion updateParidad
 2024-06-12 11:28:10 [INFO]: Actualización exitosa para empresa: Makita, moneda: NZD, fecha: 2024-06-12
 2024-06-12 11:28:10 [INFO]: Fin de la funcion fetchData-Banco-Central
+2024-12-07 11:45:25 [INFO]: Iniciamos funcion fetchData-Banco-Central
+2024-12-07 11:45:35 [INFO]: Iniciamos funcion fetchData-Banco-Central
+2024-12-07 11:45:45 [INFO]: Iniciamos funcion fetchData-Banco-Central
+2024-12-07 11:45:55 [INFO]: Iniciamos funcion fetchData-Banco-Central

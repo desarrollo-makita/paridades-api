@@ -5,7 +5,7 @@ async function connectToDatabase(databaseName) {
     const config = {
         user: 'quality',
         password: 'Qu@lity',
-        server: 'MARTILLO',
+        server: '172.16.1.207',
         database: databaseName, //"BdQMakita", // DTEBdQMakita
         options: {
             encrypt: false
