@@ -1,6 +1,7 @@
 const express = require('express');
 const { fetchData } = require('./data/dataService');
 const routes = require('./routes/routes');
+const { startCronJobs } = require('./config/cronJobs');
 const { connectToDatabase } = require('./config/database');
 
 const app = express();
@@ -23,6 +24,7 @@ app.use('/', routes);
 connectToDatabase().then(() => {
     app.listen(PORT, () => {
         console.log(`Servidor escuchando en ${SERVER_URL}`);
+        startCronJobs();
     });
  
 }).catch(error => {

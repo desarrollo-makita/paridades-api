@@ -1887,3 +1887,27 @@
 2024-12-07 11:45:35 [INFO]: Iniciamos funcion fetchData-Banco-Central
 2024-12-07 11:45:45 [INFO]: Iniciamos funcion fetchData-Banco-Central
 2024-12-07 11:45:55 [INFO]: Iniciamos funcion fetchData-Banco-Central
+2025-01-09 12:52:30 [INFO]: Tareas programadas iniciadas
+2025-01-09 12:53:00 [INFO]: Iniciando tarea programada: paridades
+2025-01-09 12:53:00 [INFO]: Iniciamos la funcion paridades
+2025-01-09 12:53:00 [INFO]: Iniciamos funcion fetchData-Banco-Central
+2025-01-09 12:53:00 [INFO]: Iniciamos la funcion updateParidad
+2025-01-09 12:53:00 [INFO]: Actualización exitosa para empresa: Makita, moneda: CAD, fecha: 2025-01-09
+2025-01-09 12:53:00 [INFO]: Iniciamos la funcion updateParidad
+2025-01-09 12:53:00 [INFO]: Actualización exitosa para empresa: Makita, moneda: US$, fecha: 2025-01-09
+2025-01-09 12:53:00 [INFO]: Iniciamos la funcion updateParidad
+2025-01-09 12:53:00 [INFO]: Actualización exitosa para empresa: Makita, moneda: CHF, fecha: 2025-01-09
+2025-01-09 12:53:00 [INFO]: Iniciamos la funcion updateParidad
+2025-01-09 12:53:00 [INFO]: Actualización exitosa para empresa: Makita, moneda: LI, fecha: 2025-01-09
+2025-01-09 12:53:00 [INFO]: Iniciamos la funcion updateParidad
+2025-01-09 12:53:00 [INFO]: Actualización exitosa para empresa: Makita, moneda: EU, fecha: 2025-01-09
+2025-01-09 12:53:00 [INFO]: Iniciamos la funcion updateParidad
+2025-01-09 12:53:00 [INFO]: Actualización exitosa para empresa: Makita, moneda: AUD, fecha: 2025-01-09
+2025-01-09 12:53:00 [INFO]: Iniciamos la funcion updateParidad
+2025-01-09 12:53:00 [INFO]: Actualización exitosa para empresa: Makita, moneda: CNY, fecha: 2025-01-09
+2025-01-09 12:53:00 [INFO]: Iniciamos la funcion updateParidad
+2025-01-09 12:53:00 [INFO]: Actualización exitosa para empresa: Makita, moneda: NZD, fecha: 2025-01-09
+2025-01-09 12:53:00 [INFO]: Fin de la funcion fetchData-Banco-Central
+2025-01-09 12:53:00 [INFO]: Data fetched successfully Las Paridades fueron actualizadas
+2025-01-09 12:53:00 [INFO]: Respuesta del cron: {"Data fetched successfully":{"mensaje":"Las Paridades fueron actualizadas","status":200}}
+2025-01-09 12:53:00 [INFO]: Tarea programada completada con éxito
