@@ -12,6 +12,8 @@ async function connectToDatabase(databaseName) {
         }
     };
 
+    console.log('Conectando a la base de datos...', config);
+
     try {
         await sql.connect(config);
     } catch (error) {

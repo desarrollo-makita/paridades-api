@@ -24,24 +24,7 @@ connectToDatabase().then(() => {
     app.listen(PORT, () => {
         console.log(`Servidor escuchando en ${SERVER_URL}`);
     });
-    try {
-        setInterval(async () => {
-            try {
-                const seriesData = await fetchData();
-                if(seriesData.status === 200){
-                    console.log('Data fetched successfully:', seriesData);
-                }else{
-                    console.log('Error fetching data:', seriesData);
-                }
-                
-            } catch (error) {
-                console.error('Error fetching data:', error.message);
-            }
-        }, 10000); // 10000 milisegundos = 10 segundos
-       
-    } catch (error) {
-        console.error('Error fetching data:', error.message);
-    }
+ 
 }).catch(error => {
     console.error('Error al iniciar el servidor:', error);
     process.exit(1); // Termina el proceso con un código de error

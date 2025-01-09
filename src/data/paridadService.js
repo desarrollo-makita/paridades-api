@@ -9,10 +9,6 @@ const logger = require('../config/logger.js');
 async function updateParidad(empresa, moneda, fecha, valor) {
 
     try {
-
-
-
-        let contador;
         logger.info(`Iniciamos la funcion updateParidad`);
     
         if (!empresa || !moneda || !fecha || !valor ) {
@@ -30,37 +26,30 @@ async function updateParidad(empresa, moneda, fecha, valor) {
             request.input('moneda', sql.VarChar, moneda);
             request.input('fecha', sql.Date, fecha);
             request.input('valor',  sql.Decimal(22, 8), valor);
-            
-            const consulta = `UPDATE Paridad SET Paridad = @valor WHERE Empresa = @empresa AND Moneda = @moneda AND Fecha = @fecha`;
-            
-            const result = await request.query(consulta);
 
-            logger.info(`Actualización exitosa para empresa: ${empresa}, moneda: ${moneda}, fecha: ${fecha}`);
+            // Verificar si la fila ya existe
+            const checkQuery = `SELECT COUNT(*) as count FROM Paridad WHERE Empresa = @empresa AND Moneda = @moneda AND Fecha = @fecha`;
+            const checkResult = await request.query(checkQuery);
 
-            if (result.rowsAffected[0] > 0) {
-                // Si al menos una fila fue afectada por la actualización
-                setEmailSent(false);
-                return resExito ={
-                    "mensaje" : "Las Paridades fueron actualizadas",
-                    "status": 200
-                };
+            if (checkResult.recordset[0].count > 0) {
+                // Si la fila ya existe, actualizarla
+                const updateQuery = `UPDATE Paridad SET Paridad = @valor WHERE Empresa = @empresa AND Moneda = @moneda AND Fecha = @fecha`;
+                console.log("Consulta SQL de actualización:", updateQuery);
+                await request.query(updateQuery);
+                logger.info(`Actualización exitosa para empresa: ${empresa}, moneda: ${moneda}, fecha: ${fecha}`);
             } else {
-                const resError = {
-                    "mensaje" : "No se encontraron datos para actualizar, debe cargar el periodo",
-                    "status": 404
-                };
-
-                if (!isEmailSent()) {
-                    // await sendEmailWithDB(resError);
-                    setEmailSent(true); // Marcamos que el correo ha sido enviado
-                }
-
-               // 
-                return resError;
+                // Si la fila no existe, insertarla
+                const insertQuery = `INSERT INTO Paridad (Empresa, Moneda, Fecha, Paridad) VALUES (@empresa, @moneda, @fecha, @valor)`;
+                console.log("Consulta SQL de inserción:", insertQuery);
+                await request.query(insertQuery);
+                logger.info(`Inserción exitosa para empresa: ${empresa}, moneda: ${moneda}, fecha: ${fecha}`);
             }
-            
-            
-           
+
+            setEmailSent(false);
+            return {
+                "mensaje": "Las Paridades fueron actualizadas",
+                "status": 200
+            };
         }
     } catch (error) {
         throw error;

@@ -45,13 +45,10 @@ async function fetchData() {
         const currentDate = getCurrentDate();
        
         const apiUrl = `https://si3.bcentral.cl/SieteRestWS/SieteRestWS.ashx?user=soporte@makita.cl&pass=Makita2024&firstdate=${currentDate}&lastdate=${currentDate}&timeseries=`;
-      
-        const requests = series.map(serie => axios.get(`${apiUrl}${serie}&function=GetSeries`));
-      
-        const responses = await Promise.all(requests);
-        
-        const todayData = responses.map(response => response.data).filter(data => data.Series.Obs.length > 0);
        
+        const requests = series.map(serie => axios.get(`${apiUrl}${serie}&function=GetSeries`));
+        const responses = await Promise.all(requests);
+        const todayData = responses.map(response => response.data).filter(data => data.Series.Obs.length > 0);
         // Variable para almacenar la respuesta de updateParidad
         let responseUpdate;
 
@@ -65,7 +62,7 @@ async function fetchData() {
                   
                     if (descripcion.includes(keyword)) {
                         item.Series.Obs[0].glosa = glosaMapping[keyword];
-                        
+                       
                         break;
                     }
                 }
