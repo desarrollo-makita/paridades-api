@@ -3,7 +3,7 @@ const { paridades } = require('./../controllers/paridadesControllers.js'); // Aj
 const logger = require("../config/logger.js");
 
 // Configurar el cron job para que se ejecute todos los días a las 3:00 AM
-cron.schedule('0 9 * * *', async () => {
+cron.schedule('0 7 * * *', async () => {
     logger.info('Iniciando tarea programada: paridades');
     try {
         // Simula la solicitud que haría el cliente
